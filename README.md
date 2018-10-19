@@ -34,3 +34,6 @@ git push -u origin master
 
 3) Push your changes to gitlab:  
 ```git push```
+
+### Jupyter notebook
+It seems as if Gitlab can render `.ipynb` files somewhat accurately, however images and some other data seems to be omitted. To see the "real" results, it's best to run the file locally.
