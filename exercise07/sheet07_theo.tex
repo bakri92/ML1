@@ -110,19 +110,19 @@ Calculation of bias, variance and mean squared error of the following estimators
 \paragraph{}
 (b) Proof of $Error(\hat{P}) = Bias(\hat{P}) + Var(\hat{P})$
 	\begin{displaymath}
-	Error(\hat{P}) = E[D_{KL}(P|\hat{P})]
+	Bias(\hat{P}) = \sum_i P_i log(\frac{P_i}{R_i}) = \sum_i P_i log (\frac{P_i}{\frac{exp(E[log(\hat{P}_i)])}{\sum_j exp(E[log(\hat{P}_j)])}} = \sum_i P_i log(\frac{P_i}{\hat{P}_i}) + log(\sum_j exp(E[log(\hat{P}_j)]))
 	\end{displaymath}
-	In (a) we showed the $R$ that is minimizing this function
+	In (a) we showed the $R$ that is minimizing the expected divergence and under usage of $\sum_i R_i = 1$
 	\begin{displaymath}
-	R_i = \frac{exp(E[log(\hat{P}_i)])}{\sum_j exp(E[log(\hat{P}_j)])}
+	log(\sum_j exp(E[log(\hat{P}_j)])) = log(\frac{exp(E[log(\hat{P}_i)])}{R_i} = E[\sum_i R_i log(\frac{\hat{P}_i}{R_i})] = -E[D_{KL}(R|\hat{P})] = -Var(\hat{P})
 	\end{displaymath}
-	Putting our setup to be at least above that we obtain
+	Putting our setup into the Term for the Bias
 	\begin{displaymath}
-	E[D_{KL}(P|\hat{P})] = \sum P_i log(\frac{P_i}{R_i}) + E[\sum R_i log(\frac{R_i}{\hat{P}_i})]
+	Bias(\hat{P}) = D_{KL}(P|R) = E[D_{KL}(P|\hat{P})] - E[D_{KL}(R|\hat{P})]
 	\end{displaymath}
 	So that in the end we obtain
 	\begin{displaymath}
-	 = D_{KL}(P|R) + E[D_{KL}(R|\hat{P})] = Bias(\hat{P}) + Var(\hat{P})
+	 Error(\hat{P}) = E[D_{KL}(P|\hat{P})] = D_{KL}(P|R) +  E[D_{KL}(R|\hat{P})] = Bias(\hat{P}) + Var(\hat{P})
 	\end{displaymath}
 \paragraph{}
 \end{document}
