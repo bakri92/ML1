@@ -1,0 +1,128 @@
+\documentclass[]{article}
+
+% LADEN DER PACKAGES
+\usepackage[per=slash,
+decimalsymbol=comma,
+loctolang={DE:ngerman},
+separate-uncertainty=true,
+]{siunitx}
+\usepackage{amsmath} 						% Paket f�r Formelumgebungen
+\usepackage{amssymb} 						% Paket f�rMathe-Symbole
+\usepackage{array}       					% Paket zum Erweitern der Tabelleneigenschaften
+\usepackage{graphicx}  						% Paket um Grafiken einbetten zu k�nnen
+\usepackage{color}       					% Paket f�r Farben im PDF (Seitenfarbe und Textfarbe)
+
+\usepackage{makeidx}   						% Paket f�r die Indexerstellung.
+\usepackage[utf8]{inputenc} 				% Paket erm�glicht Eingabe von Umlauten
+\usepackage[T1]{fontenc} 					% Paket f�r Schriftart, Verwenden von T1 Fonts in Ausgabe zur Darstellung von Umlauten
+%\usepackage{fontspec}
+\usepackage{url}     						% Paket zur richtigen Darstellung von URLs
+\usepackage[a4paper,left=2.5cm,right=2.0cm]{geometry} % Paket zum Einstellen der Seitenr�nder
+
+\usepackage[ngerman]{babel} 				% Paket f�r Zeichensetzung und Worttrennung, deutsche Zeichensetzung verwenden
+\usepackage{esvect}  						% Paket f�r Vektorpfeile: \vv{x}
+\usepackage{caption} 						% Paket um Beschriftung f�r Gleitobjekte anzupassen
+\setlength{\captionmargin}{10pt} 		% extra Abstand rechts und links f�r Beschriftung
+\renewcommand{\captionfont}{\footnotesize}	% Beschriftung ist in Fu�notengr��e
+\usepackage[section]{placeins} 				% Paket f�r erweiterte Positionierung von Gleitobjekten, Gleitobjekte d�rfen Abschnitt nicht verlassen
+\usepackage{float}							% Paket zur erweiterung der Gleitobjektfunktionalit�ten, erm�glicht feste Positionierung mit \begin{table}[H]
+\usepackage{tocvsec2} % Paket zum Einstellen von Inhaltsverzeichnis, schie�t Auflistung von Inhalts-, Abbildungs- und Tabellenverzeichnis im Inhaltsverzeichnis aus, numeriert Literaturverzeichnis
+
+\usepackage[hidelinks]{hyperref}	% Erm�glicht Weblinks mit \href
+\usepackage{longtable}
+\usepackage{multirow}						% Erm�glicht mehrzeilige Tabellenzellen
+%\usepackage{underscore} 					% Erm�glicht es, Unter_striche im Text zu verwenden.
+\usepackage{newunicodechar}					% Erm�glicht es, neue Unicode-Zeichen zu definieren
+\usepackage[decimalsymbol=comma]{siunitx}	% Schreiben von SI-Einheiten
+\usepackage[loose]{units}					% Schreiben von Einheiten
+%\usepackage[separate-uncertainty=true,uncertainty-separator={\,},output-decimal-marker={,},multi-part-units=brackets,range-units=brackets,range-phrase={\,--\,},per=slash]{siunitx}
+
+\begin{document}
+\title{Exercise Sheet 7}
+\maketitle
+
+\section{Bias and Variance of Mean Estimators}	
+Calculation of bias, variance and mean squared error of the following estimators:
+\paragraph{}
+(a) $\hat{\mu} = \frac{1}{N} \sum_i^N X_i$
+	\begin{displaymath}
+	Bias(\hat{\mu}) = E [\hat{\mu}-\mu] = E [\frac{1}{N} \sum_i^N X_i - \mu]
+	= \frac{1}{N} E[\sum_i^N X_i] - \mu = \frac{1}{N} \cdot N \cdot \mu - \mu = 0
+	\end{displaymath}
+	\begin{displaymath}
+	Var(\hat{\mu}) = E [(\hat{\mu} - E[\hat{\mu}])^2] = \frac{1}{N^2} \sum_i^N Var(X_i) = \frac{1}{N} \mu
+	\end{displaymath}
+	\begin{displaymath}
+	MSE(\hat{\mu}) = Var(\hat{\mu}) + Bias^2(\hat{\mu}) = Var(\hat{\mu}) = \frac{1}{N} \mu
+	\end{displaymath}
+\paragraph{}
+(b) $\hat{\mu} = 0$
+	\begin{displaymath}
+	Bias(\hat{\mu}) = E [\hat{\mu}-\mu] = E [0 - \mu]
+	= - \mu
+	\end{displaymath}
+	\begin{displaymath}
+	Var(\hat{\mu}) = E [(\hat{\mu} - E[\hat{\mu}])^2] = E [(0 - E[0])^2] = 0
+	\end{displaymath}
+	\begin{displaymath}
+	MSE(\hat{\mu}) = Var(\hat{\mu}) + Bias^2(\hat{\mu}) = Bias^2(\hat{\mu}) = \mu^2
+	\end{displaymath}
+\paragraph{}
+\section{Bias-Variance Decomposition for Regression}
+\paragraph{}
+(a) Proof of $Error(\hat{f}(x)) = Bias(\hat{f}(x))^2 + Var(\hat{f}(x))$
+	\begin{displaymath}
+	Error(\hat{f}(x)) = E[(\hat{f}(x)-f(x))^2]
+	\end{displaymath}
+	Adding Zero doesn't change the equation
+	\begin{displaymath}
+	=E[((\hat{f}(x) - E[\hat{f}(x)]) + (E[\hat{f}(x)] -f(x)))^2]
+	\end{displaymath}
+	Multiplicating out the square
+	\begin{displaymath}
+	= E[(\hat{f}(x)-E[\hat{f}(x)])^2 + 2(\hat{f}(x) - E[\hat{f}(x)])(E[\hat{f}(x)] -f(x)) + (E[\hat{f}(x)] -f(x))^2]
+	\end{displaymath}
+	And because $E[\hat{f}(x) - E[\hat{f}(x)]] = 0$ and in the squareterms we are allowed to change the summands, we obtain,
+	\begin{displaymath}
+	= E[(\hat{f}(x)-E[\hat{f}(x)])^2] + E[(E[\hat{f}(x)] -f(x))^2] =  Var(\hat{f}(x)) + Bias(\hat{f}(x))^2
+	\end{displaymath}
+\paragraph{}
+\section{Bias-Variance Decomposition for Classification}
+\paragraph{}
+(a) Solution for the Optimisation problem $min_R = E[D_{KL}(P|\hat{P})]$
+	\begin{displaymath}
+	E[D_{KL}(P|\hat{P})] = E[\sum_i P_i log(\frac{P_i}{\hat{P}_i})]
+	\end{displaymath}
+	for a minimization problem we use the Lagrange-method
+	\begin{displaymath}
+	L(P,\lambda) = \sum_i P_i log(\frac{P_i}{\hat{P}_i}) + \lambda(\sum_i P_i -1)
+	\end{displaymath}
+	obtaining as partial derivatives
+	\begin{displaymath}
+	\frac{\partial L}{\partial P} = \sum_i (\frac{P_i}{\hat{P}_i}+1)+\lambda = 0 , \ \ \
+	\frac{\partial L}{\partial \lambda} = \sum_i P_i - 1 = 0
+	\end{displaymath}
+	Following the term for $P_i$
+	\begin{displaymath}
+	P_i = \frac{exp(E[log(\hat{P}_i)])}{\sum_j exp(E[log(\hat{P}_j)])}
+	\end{displaymath}
+	And with $R_i = P_i$ we obtain $R= [R_1,...,R_C]$ as solution.
+\paragraph{}
+(b) Proof of $Error(\hat{P}) = Bias(\hat{P}) + Var(\hat{P})$
+	\begin{displaymath}
+	Bias(\hat{P}) = \sum_i P_i log(\frac{P_i}{R_i}) = \sum_i P_i log (\frac{P_i}{\frac{exp(E[log(\hat{P}_i)])}{\sum_j exp(E[log(\hat{P}_j)])}} = \sum_i P_i log(\frac{P_i}{\hat{P}_i}) + log(\sum_j exp(E[log(\hat{P}_j)]))
+	\end{displaymath}
+	In (a) we showed the $R$ that is minimizing the expected divergence and under usage of $\sum_i R_i = 1$
+	\begin{displaymath}
+	log(\sum_j exp(E[log(\hat{P}_j)])) = log(\frac{exp(E[log(\hat{P}_i)])}{R_i} = E[\sum_i R_i log(\frac{\hat{P}_i}{R_i})] = -E[D_{KL}(R|\hat{P})] = -Var(\hat{P})
+	\end{displaymath}
+	Putting our setup into the Term for the Bias
+	\begin{displaymath}
+	Bias(\hat{P}) = D_{KL}(P|R) = E[D_{KL}(P|\hat{P})] - E[D_{KL}(R|\hat{P})]
+	\end{displaymath}
+	So that in the end we obtain
+	\begin{displaymath}
+	 Error(\hat{P}) = E[D_{KL}(P|\hat{P})] = D_{KL}(P|R) +  E[D_{KL}(R|\hat{P})] = Bias(\hat{P}) + Var(\hat{P})
+	\end{displaymath}
+\paragraph{}
+\end{document}
