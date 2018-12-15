@@ -1,0 +1,59 @@
+\documentclass[11pt,abstract=on]{scrartcl}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{svg}
+\usepackage{amsmath}
+\usepackage{import}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage[nolist]{acronym} %[nolist]
+%\usepackage{hyphenat}
+\title{Excercise Sheet 9}
+\subtitle{Machine Learning}
+\date{\today}
+
+\begin{document}
+\maketitle
+\section{The Dual SVM}
+\subsection{a}
+\begin{equation*}
+\Lambda(w,\theta,\alpha) = \frac{1}{2}  \lVert w \rVert^2 - \sum\limits_{i=1}^{N} \alpha_{i}(y_{i}(w^T x_{i} + \theta)-1)
+\end{equation*}
+
+\section{SVMs and Quadratic Programming}
+\begin{equation*}
+x= \alpha
+\end{equation*}
+\begin{equation*}
+P=H
+\end{equation*}
+\begin{equation*}
+q=-\boldsymbol{1}
+\end{equation*}
+\begin{equation*}
+G=\left( \begin{array}{rrrr}
+1 & 0 & \cdots & 0 \\
+0 & \ddots & 0 & \vdots \\
+\vdots & 0 & \ddots & 0 \\
+0 & \cdots & 0 & 1 \\
+-1 & 0 & \cdots & 0 \\
+0 & \ddots & 0 & \vdots \\
+\vdots & 0 & \ddots & 0 \\
+0 & \cdots & 0 & -1 \\
+\end{array}\right), N\times 2N 
+\end{equation*}
+\begin{equation*}
+ h = (C1^T_1,\cdots,C1^T_N,0,\cdots,0)^T,2N
+\end{equation*}
+\begin{equation*}
+A=\boldsymbol{y}^T
+\end{equation*}
+\begin{equation*}
+b = \boldsymbol{0}
+\end{equation*}
+
+
+\end{document}
