@@ -14,13 +14,115 @@
 \title{Excercise Sheet 9}
 \subtitle{Machine Learning}
 \date{\today}
-
+\setlength{\parindent}{0pt}
 \begin{document}
 \maketitle
 \section{The Dual SVM}
 \subsection{a}
 \begin{equation*}
 \Lambda(w,\theta,\alpha) = \frac{1}{2}  \lVert w \rVert^2 - \sum\limits_{i=1}^{N} \alpha_{i}(y_{i}(w^T x_{i} + \theta)-1)
+\end{equation*}
+
+\subsection{b}
+Derive $\Lambda$ by w and $\theta$ and set the derivatives to zero
+
+\begin{equation*}
+\frac{\partial}{\partial w} \Lambda = 0 \Rightarrow w = \sum\limits_{i=1}^{N}\alpha_i y_i x_i
+\end{equation*}
+\begin{equation*}
+ \frac{\partial}{\partial \theta} \Lambda = 0 \Rightarrow \sum\limits_{i=1}^{N}\alpha_i y_i = 0
+\end{equation*}
+
+The function W($\alpha$) is determined by inserting the results into $\Lambda$
+
+\begin{equation*}
+W(\alpha) = \frac{1}{2}\sum\limits_{i=1}^{N}(a_i y_i x_i)^2 - \sum\limits_{i=1}^{N} \alpha_i y_i x_i \sum\limits_{i=1}^{N} \alpha_i y_i x_i - \theta \sum\limits_{i=1}^{N} \alpha_i y_i + \sum\limits_{i=1}^{N} \alpha_i
+\end{equation*}
+\begin{equation*}
+= \sum\limits_{i=1}^{N} \alpha_i-\frac{1}{2} \sum\limits_{i=1}^{N} \alpha_i y_i x_i \sum\limits_{i=1}^{N} \alpha_i y_i x_i
+\end{equation*}
+\begin{equation*}
+= \sum\limits_{i=1}^{N} \alpha_i-\frac{1}{2} \sum\limits_{i,j=1}^{N} \alpha_i \alpha_j y_i y_j x_i x_j
+\end{equation*}
+
+The function W($\alpha$) is maximized by $\alpha$. For each $x_i$ and $y_i$ in the training data, $\alpha_i$ depends on
+
+\begin{equation*}
+y_i((w x_i) + \theta) > 1 \rightarrow \alpha_i = 0
+\end{equation*}
+\begin{equation*}
+y_i((w x_i) + \theta) = 1 \rightarrow \alpha_i \in SV
+\end{equation*}
+
+The vector w only depends on support vectors
+
+\begin{equation*}
+w = \sum\limits_{i=1}^{N} \alpha_i y_i x_i = \sum\limits_{i=1}^{\#SV} \alpha_i y_i x_i
+\end{equation*}
+
+\begin{equation*}
+y_i((\sum\limits_{j=1}^{\#SV} \alpha_j y_j x_j x_i) + \theta) > 1 \rightarrow \alpha_i = 0
+\end{equation*}
+\begin{equation*}
+y_i((\sum\limits_{j=1}^{\#SV} \alpha_j y_j x_j x_i) + \theta) = 1 \rightarrow \alpha_i \in SV
+\end{equation*}
+
+The value of $\theta$ can be recovered with an $x_m$ on the margin with
+
+\begin{equation*}
+y_m (w^T x_m + \theta) = 1 \Leftrightarrow \theta = y_m - w x_m
+\end{equation*}
+
+\subsection{c}
+
+
+Derive $\Lambda$ by w and $\theta$ and set the derivatives to zero
+
+\begin{equation*}
+\frac{\partial}{\partial w} \Lambda = 0 \Rightarrow w = \sum\limits_{i=1}^{N}\alpha_i y_i \Phi(x_i)
+\end{equation*}
+\begin{equation*}
+ \frac{\partial}{\partial \theta} \Lambda = 0 \Rightarrow \sum\limits_{i=1}^{N}\alpha_i y_i = 0
+\end{equation*}
+
+The function W($\alpha$) is determined by inserting the results into $\Lambda$
+
+\begin{equation*}
+W(\alpha) = \frac{1}{2}\sum\limits_{i=1}^{N}(a_i y_i \Phi(x_i))^2 - \sum\limits_{i=1}^{N} \alpha_i y_i \Phi(x_i) \sum\limits_{i=1}^{N} \alpha_i y_i \Phi(x_i) - \theta \sum\limits_{i=1}^{N} \alpha_i y_i + \sum\limits_{i=1}^{N} \alpha_i
+\end{equation*}
+\begin{equation*}
+= \sum\limits_{i=1}^{N} \alpha_i-\frac{1}{2} \sum\limits_{i=1}^{N} \alpha_i y_i \Phi(x_i) \sum\limits_{i=1}^{N} \alpha_i y_i \Phi(x_i)
+\end{equation*}
+\begin{equation*}
+= \sum\limits_{i=1}^{N} \alpha_i-\frac{1}{2} \sum\limits_{i,j=1}^{N} \alpha_i \alpha_j y_i y_j k(x_i, x_j)
+\end{equation*}
+
+The function W($\alpha$) is maximized by $\alpha$. For each $x_i$ and $y_i$ in the training data, $\alpha_i$ depends on
+
+\begin{equation*}
+y_i((w \Phi(x_i)) + \theta) > 1 \rightarrow \alpha_i = 0
+\end{equation*}
+\begin{equation*}
+y_i((w \Phi(x_i)) + \theta) = 1 \rightarrow \alpha_i \in SV
+\end{equation*}
+
+The vector w only depends on support vectors
+
+\begin{equation*}
+w = \sum\limits_{i=1}^{N} \alpha_i y_i \Phi(x_i) = \sum\limits_{i=1}^{\#SV} \alpha_i y_i \Phi(x_i)
+\end{equation*}
+
+\begin{equation*}
+y_i((\sum\limits_{j=1}^{\#SV} \alpha_j y_j k(x_j, x_i)) + \theta) > 1 \rightarrow \alpha_i = 0
+\end{equation*}
+\begin{equation*}
+y_i((\sum\limits_{j=1}^{\#SV} \alpha_j y_j k(x_j, x_i)) + \theta) = 1 \rightarrow \alpha_i \in SV
+\end{equation*}
+
+The value of $\theta$ can be recovered with an $x_m$ on the margin with
+
+\begin{equation*}
+y_m (w^T \Phi(x_m) + \theta) = 1 \Leftrightarrow \theta = y_m - w \Phi(x_m)
 \end{equation*}
 
 \section{SVMs and Quadratic Programming}
@@ -43,7 +145,7 @@ G=\left( \begin{array}{rrrr}
 0 & \ddots & 0 & \vdots \\
 \vdots & 0 & \ddots & 0 \\
 0 & \cdots & 0 & -1 \\
-\end{array}\right), N\times 2N 
+\end{array}\right), 2N\times N 
 \end{equation*}
 \begin{equation*}
  h = (C,\cdots,C,0,\cdots,0)^T,2N
