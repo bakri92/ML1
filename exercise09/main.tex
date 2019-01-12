@@ -36,13 +36,13 @@ Derive $\Lambda$ by w and $\theta$ and set the derivatives to zero
 The function W($\alpha$) is determined by inserting the results into $\Lambda$
 
 \begin{equation*}
-W(\alpha) = \frac{1}{2}\sum\limits_{i=1}^{N}(a_i y_i x_i)^2 - \sum\limits_{i=1}^{N} \alpha_i y_i x_i \sum\limits_{i=1}^{N} \alpha_i y_i x_i - \theta \sum\limits_{i=1}^{N} \alpha_i y_i + \sum\limits_{i=1}^{N} \alpha_i
+W(\alpha) = \frac{1}{2} \left|\left| \sum\limits_{i=1}^{N}a_i y_i x_i \right|\right|^2 - \sum\limits_{i=1}^{N} \alpha_i y_i x_i \cdot\sum\limits_{i=1}^{N} \alpha_i y_i x_i - \theta \sum\limits_{i=1}^{N} \alpha_i y_i + \sum\limits_{i=1}^{N} \alpha_i
 \end{equation*}
 \begin{equation*}
-= \sum\limits_{i=1}^{N} \alpha_i-\frac{1}{2} \sum\limits_{i=1}^{N} \alpha_i y_i x_i \sum\limits_{i=1}^{N} \alpha_i y_i x_i
+= \sum\limits_{i=1}^{N} \alpha_i-\frac{1}{2} \sum\limits_{i=1}^{N} \alpha_i y_i x_i \cdot \sum\limits_{i=1}^{N} \alpha_i y_i x_i
 \end{equation*}
 \begin{equation*}
-= \sum\limits_{i=1}^{N} \alpha_i-\frac{1}{2} \sum\limits_{i,j=1}^{N} \alpha_i \alpha_j y_i y_j x_i x_j
+= \sum\limits_{i=1}^{N} \alpha_i-\frac{1}{2} \sum\limits_{i,j=1}^{N} \alpha_i \alpha_j y_i y_j x_i \cdot x_j
 \end{equation*}
 
 The function W($\alpha$) is maximized by $\alpha$. For each $x_i$ and $y_i$ in the training data, $\alpha_i$ depends on
@@ -75,7 +75,6 @@ y_m (w^T x_m + \theta) = 1 \Leftrightarrow \theta = y_m - w x_m
 
 \subsection{c}
 
-
 Derive $\Lambda$ by w and $\theta$ and set the derivatives to zero
 
 \begin{equation*}
@@ -88,10 +87,10 @@ Derive $\Lambda$ by w and $\theta$ and set the derivatives to zero
 The function W($\alpha$) is determined by inserting the results into $\Lambda$
 
 \begin{equation*}
-W(\alpha) = \frac{1}{2}\sum\limits_{i=1}^{N}(a_i y_i \Phi(x_i))^2 - \sum\limits_{i=1}^{N} \alpha_i y_i \Phi(x_i) \sum\limits_{i=1}^{N} \alpha_i y_i \Phi(x_i) - \theta \sum\limits_{i=1}^{N} \alpha_i y_i + \sum\limits_{i=1}^{N} \alpha_i
+W(\alpha) = \frac{1}{2}\left|\left|\sum\limits_{i=1}^{N}a_i y_i \Phi(x_i) \right|\right|^2 - \sum\limits_{i=1}^{N} \alpha_i y_i \Phi(x_i) \cdot \sum\limits_{i=1}^{N} \alpha_i y_i \Phi(x_i) - \theta \sum\limits_{i=1}^{N} \alpha_i y_i + \sum\limits_{i=1}^{N} \alpha_i
 \end{equation*}
 \begin{equation*}
-= \sum\limits_{i=1}^{N} \alpha_i-\frac{1}{2} \sum\limits_{i=1}^{N} \alpha_i y_i \Phi(x_i) \sum\limits_{i=1}^{N} \alpha_i y_i \Phi(x_i)
+= \sum\limits_{i=1}^{N} \alpha_i-\frac{1}{2} \sum\limits_{i=1}^{N} \alpha_i y_i \Phi(x_i) \cdot \sum\limits_{i=1}^{N} \alpha_i y_i \Phi(x_i)
 \end{equation*}
 \begin{equation*}
 = \sum\limits_{i=1}^{N} \alpha_i-\frac{1}{2} \sum\limits_{i,j=1}^{N} \alpha_i \alpha_j y_i y_j k(x_i, x_j)
@@ -124,6 +123,19 @@ The value of $\theta$ can be recovered with an $x_m$ on the margin with
 \begin{equation*}
 y_m (w^T \Phi(x_m) + \theta) = 1 \Leftrightarrow \theta = y_m - w \Phi(x_m)
 \end{equation*}
+Hence the kernelized version of the primal program is:
+
+minimize $\lVert w \rVert^2$ 
+subject to $y_i(w^T\Phi(x_i) + \theta) \geq 1$
+
+with Lagrangian:
+\begin{equation*}
+\Lambda(w,\theta,\alpha) = \frac{1}{2}  \lVert w \rVert^2 - \sum\limits_{i=1}^{N} \alpha_{i}(y_{i}(w^T \Phi(x_{i}) + \theta)-1)
+\end{equation*}
+And the kernelized version of the dual program is:
+
+maximize $W(\alpha)= \sum\limits_{i=1}^{N} \alpha_i-\frac{1}{2} \sum\limits_{i,j=1}^{N} \alpha_i \alpha_j y_i y_j k(x_i, x_j)$
+subject to $\alpha_i \geq 0$, $i=1,...,N$ and $\sum_{i=1}^N \alpha_i y_i =0$
 
 \section{SVMs and Quadratic Programming}
 \begin{equation*}
