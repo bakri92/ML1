@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Machine Learning 1 Exercises
 
 ## Instructions
@@ -37,3 +38,8 @@ git push -u origin master
 
 ### Jupyter notebook
 It seems as if Gitlab can render `.ipynb` files somewhat accurately, however images and some other data seems to be omitted. To see the "real" results, it's best to run the file locally.
+=======
+# ML1
+These are the programming sheets from the course Machine Leaning 1 at the TU Berlin with Prof. Dr. Klaus-Robert Müller. 
+In each file there is the code in ipynb format and apdf file with output and the structure of the problem. 
+>>>>>>> 99dc59a7d22730ee2d97e9e35e377d4f3b1241a1
